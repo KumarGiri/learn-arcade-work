@@ -5,7 +5,7 @@ import random
 HEIGHT = 600
 WIDTH = 800
 
-arcade.open_window(WIDTH, HEIGHT, "Draw using functions")
+arcade.open_window(WIDTH, HEIGHT, "Draw Using functions")
 arcade.set_background_color(arcade.color.WHITE)
 arcade.start_render()
 
@@ -41,7 +41,7 @@ for x in range (1,8):
 x_center= 612
 y_center= 475
 for x in range (1,8):
-    x_center +=3
+    x_center +=2
     y_center +=18
     leafs(x_center, y_center, random.randint(135,155))
 
