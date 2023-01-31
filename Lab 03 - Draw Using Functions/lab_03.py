@@ -3,7 +3,7 @@ import math
 import random
 
 HEIGHT = 600
-WIDTH = 800
+WIDTH = 1000
 
 arcade.open_window(WIDTH, HEIGHT, "Draw Using functions")
 arcade.set_background_color(arcade.color.WHITE)
