@@ -2,9 +2,9 @@
 import arcade
 
 # setup the window
-Height = 600
-Width = 1000
-arcade.open_window(Width, Height, "Ship at sea")
+HEIGHT = 600
+WIDTH = 1000
+arcade.open_window(WIDTH, HEIGHT, "Ship at sea")
 arcade.set_background_color(arcade.color.WHITE)
 
 # start rendering drawing codes
@@ -25,7 +25,7 @@ y1= 320
 x2= 450
 y2= 320
 arcade.draw_polygon_filled([[x1, y1], [x2, y2], [x2-35, y2-70], [x1+35, y1-70]], color=arcade.color.BROWN)
-arcade.draw_polygon_filled([[x1+30, y1+25], [x2-40, y2+25], [x2-30, y2],[x1+30, y1]], arcade.color.TAN)
+arcade.draw_polygon_filled([[x1+30, y1+25], [x2-40, y2+25], [x2-30, y2], [x1+30, y1]], arcade.color.TAN)
 
 # draw four circles on the ship
 arcade.draw_circle_filled(220, 280, 15, arcade.color.SAPPHIRE_BLUE)
