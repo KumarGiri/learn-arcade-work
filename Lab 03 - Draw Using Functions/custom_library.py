@@ -13,9 +13,9 @@ def cloud(x_center, y_center):
      cloud_ovals(x_center+25, y_center+10)
 
 def cloud_cousters(x):
-    cloud(800+x, 500)
-    cloud(300+x, 550)
-    cloud(400+x, 520)
+    cloud(755-x, 500)
+    cloud(670-x, 450)
+    cloud(770-x/2, 420)
 
 
 # leaves
