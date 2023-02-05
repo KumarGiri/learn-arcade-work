@@ -1,66 +1,50 @@
 import arcade
-import math
-import random
 
 HEIGHT = 600
 WIDTH = 1000
-
-arcade.open_window(WIDTH, HEIGHT, "Draw Using functions")
-arcade.set_background_color(arcade.color.WHITE)
-arcade.start_render()
-
-#cloud function
-def cloud_ovals(x_center, y_center):
-    arcade.draw_ellipse_filled(x_center, y_center, width=50, height=30, color=arcade.color.ASH_GREY)
-
-# function for a sigle cloud
-def cloud(x_center, y_center):
-     cloud_ovals(x_center, y_center)
-     cloud_ovals(x_center+25, y_center)
-     cloud_ovals(x_center+25, y_center+10)
-
-# placing clouds into specific locations
-cloud(random.randint(100,1000), 500)
-cloud(300, random.randint(400,550))
-cloud(random.randint(100,1000), 520)
+background_texture= arcade.load_texture("Jon Kleinberg.png")
+ 
+# draw window
+def structures():
+    arcade.draw_lrtb_rectangle_filled(50, 950, 598, 299, arcade.color.SKY_BLUE)
+    arcade.draw_lrtb_rectangle_outline(51, 951, 600, 300, arcade.color.BLACK, 3)
+    arcade.draw_lrwh_rectangle_textured(0, 0, 1000, 400, background_texture)
 
 #Tree leaf
-arcade.draw_line(650, 600, 625, 450, color=arcade.color.WARM_BLACK)
-def leafs(x_center, y_center, tangle):
-    return arcade.draw_ellipse_filled(x_center, y_center, 50, 10, color=arcade.color.WARM_BLACK, tilt_angle=tangle)
-leafs(628, 450,90)
-leafs(650, 475, 45)
-leafs(612, 475, 135)
+def branch():
+    arcade.draw_line(650, 600, 625, 450, color=arcade.color.WARM_BLACK)
 
-x_center= 650
-y_center= 475
-for x in range (1,8):
-    x_center +=3
-    y_center +=18
-    leafs(x_center, y_center, random.randint(15,45))
-x_center= 612
-y_center= 475
-for x in range (1,8):
-    x_center +=2
-    y_center +=18
-    leafs(x_center, y_center, random.randint(135,155))
+# draw everything
+def on_draw(deltatime):
+    arcade.start_render()
+    structures()
+    import custom_library as cl
+    cl.cloud_cousters(on_draw.x)
+
+    # draw birds    
+    cl.bird(on_draw.x/3+200, on_draw.x/10+400)
+    cl.bird(on_draw.x/2+220, on_draw.x/10+400)
+
+    # draw leaves
+    branch()
+    cl.leafs(628, 450,90)
+    cl.leafs(650, 475, 45)
+    cl.leafs(612, 475, 135)
+    cl.individual_leaves()
+
+    cl.sun(200, 530, 30)
+    on_draw.x += 1
+
+    arcade.finish_render()
+on_draw.x = 0
 
 
-#sun reflection function
-def sun_reflect(num_lines):
-    startx=550 
-    starty=290
-    endx= 650
-    endy=290
+# main function
+def main():
+    arcade.open_window(WIDTH, HEIGHT, "Draw Using functions")
+    arcade.set_background_color(arcade.color.WHITE)
+    arcade.schedule(on_draw, 1/60)
+    arcade.run()
 
-    for x in range (0, num_lines):
-         startx-=10
-         endx+=10
-         starty-=20
-         endy-=20
-         arcade.draw_line(startx,starty, endx, endy, color=arcade.color.RED_ORANGE )
-sun_reflect(6)
-
-arcade.finish_render()
-
-arcade.run()
+# call main function    
+main()
