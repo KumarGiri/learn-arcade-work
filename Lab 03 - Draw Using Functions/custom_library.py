@@ -1,7 +1,7 @@
 import arcade
 import math
 
-# to a single cloud using ellipse 
+# to draw a single cloud using ellipse 
 def cloud_ovals(x_center, y_center):
     arcade.draw_ellipse_filled(x_center, y_center, width=50, height=30, color=arcade.color.ASH_GREY)
 
