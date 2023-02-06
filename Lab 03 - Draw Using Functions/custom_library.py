@@ -1,26 +1,28 @@
 import arcade
 import math
-import random
 
-#cloud function
+# to a single cloud using ellipse 
 def cloud_ovals(x_center, y_center):
     arcade.draw_ellipse_filled(x_center, y_center, width=50, height=30, color=arcade.color.ASH_GREY)
 
-# function for a sigle cloud
+# to draw a sigle cloud
 def cloud(x_center, y_center):
      cloud_ovals(x_center, y_center)
      cloud_ovals(x_center+25, y_center)
      cloud_ovals(x_center+25, y_center+10)
 
-def cloud_cousters(x):
-    cloud(755-x, 500)
-    cloud(670-x, 450)
+# to call all the cloud clusters
+def cloud_clusters(x):
+    cloud(755-x/1.5, 500)
+    cloud(650-x, 450)
     cloud(770-x/2, 420)
 
 
-# leaves
+# to draw a brach and leaves
 def leafs(x_center, y_center, tangle):
-    return arcade.draw_ellipse_filled(x_center, y_center, 50, 10, color=arcade.color.WARM_BLACK, tilt_angle=tangle)
+    arcade.draw_line(647, 600, 625, 450, color=arcade.color.WARM_BLACK)
+    arcade.draw_ellipse_filled(x_center, y_center, 50, 10, color=arcade.color.WARM_BLACK, tilt_angle=tangle)
+
 # drawing leaves around the branch
 def individual_leaves():
     x_center= 650
@@ -37,15 +39,19 @@ def individual_leaves():
         leafs(x_center, y_center, 145)
 
 
-# draw sun and its rays
-def sun(sx, sy, radius):
+# to draw the Sun and its rays
+def sun(x, y, radius):
+    """larger rays"""
     for j in range(0,360, 40):
-        arcade.draw_line(sx+50*math.sin(math.radians(j)), sy+50*math.cos(math.radians(j)), sx+30*math.sin(math.radians(j)), sy+30*math.cos(math.radians(j)), arcade.color.SUNRAY, 2)
-        for j in range(20,380, 40):
-            arcade.draw_line(sx+45*math.sin(math.radians(j)), sy+45*math.cos(math.radians(j)), sx+30*math.sin(math.radians(j)), sy+30*math.cos(math.radians(j)), arcade.color.SUNRAY, 2)
-    arcade.draw_circle_filled(sx, sy, radius, arcade.color.SUNGLOW)
+        arcade.draw_line(x+50*math.sin(math.radians(j)), y+50*math.cos(math.radians(j)), x+30*math.sin(math.radians(j)), y+30*math.cos(math.radians(j)), arcade.color.SUNRAY, 2)
 
-# draw birds
-def bird(x, ystart):
-    arcade.draw_arc_outline(x, ystart, 15, 15, arcade.color.BLACK, 0, 155, 4)
-    arcade.draw_arc_outline(x+14, ystart, 15, 15, arcade.color.BLACK, 35, 180, 4)
+        """smaller rays"""
+        for j in range(20,380, 40):
+            arcade.draw_line(x+45*math.sin(math.radians(j)), y+45*math.cos(math.radians(j)), x+30*math.sin(math.radians(j)), y+30*math.cos(math.radians(j)), arcade.color.SUNRAY, 2)
+    arcade.draw_circle_filled(x, y, radius, arcade.color.SUNGLOW)
+    
+    """drawing a point x, y for reference"""
+    arcade.draw_point(x, y, arcade.color.RED, 5)
+
+
+
