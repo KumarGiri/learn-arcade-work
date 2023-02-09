@@ -16,52 +16,46 @@ def main():
         print("\nA. Drink from your canteen. \nB. Ahead moderate speed. \nC. Ahead full speed. \nD. Stop for the night. \nE. Status check \nQ. Quit.")
         # ask for user choice
         user_choice = input("\nWhat would you like to do? ")
-        if user_choice.upper() == "A":
-            thirst -= 20
+        if user_choice.upper() == "A" and drinks_in_canteen > 0:
+            thirst = 0
             drinks_in_canteen -=1
-            distance_from_natives +=10
         elif user_choice.upper() == 'B':
-            random_numbera = random.randint(20, 40)
+            random_numbera = random.randint(5, 12)
             miles_traveled += random_numbera
-            # 10 is the constant pace of the natives
-            miles_travelled += random_numbera + 10
-            thirst += 15
-            camel_tiredness += 20
-            # 10 is the constant pace of the natives
-            distance_from_natives -= random_numbera + 10
+            thirst += 1
+            camel_tiredness += random.randint(1,3)
+            distance_from_natives += (random.randint(7,14)-random_numbera)
+            print(f"You have traveled {miles_traveled} miles.")
         elif user_choice.upper() == 'C':
-            random_numberb = random.randint(5, 15)
+            random_numberb = random.randint(10, 20)
             miles_traveled += random_numberb
-            thirst += 10
-            camel_tiredness += 30
-            distance_from_natives = random_numberb
+            thirst += 1
+            camel_tiredness += random.randint(1,3)
+            distance_from_natives += (random.randint(7,14)-random_numberb)
+            print(f"You have traveled {miles_traveled} miles.")
         elif user_choice.upper() == 'D':
-            thirst -=20
-            camel_tiredness -= 30
-            distance_from_natives -=15
+            distance_from_natives += random.randint(7,14)
+            camel_tiredness = 0
+            print("Camel is happy.")
         elif user_choice.upper() == 'E':
-
-            print(f'You have traveled {miles_traveled} miles, \nDr. Gunna E\'tcha is {distance_from_natives} behind you, \nYou have {water_swigs_left} number of pills, \nYour tiredness level is {thirst}%')
-            print(f'You have travelled {miles_travelled} miles. \nDr. Gunna E\'tcha is {distance_from_natives} behind you. \nYou have {drinks_in_canteen} number of pills. \nCamel_tiredness is {camel_tiredness}%. \nYour tiredness level is {thirst}%.')
-
+            print(f'You have traveled {miles_traveled} miles. \nThe natives are {distance_from_natives} miles behind you. \nYou have {drinks_in_canteen} drinks in your canteen left. \nYour tiredness level is {thirst}%')
             distance_from_natives += 5
         elif user_choice.upper() == 'Q':
-            print(f"You quit. \nMiles travelled: {miles_travelled} \nDrinks in canteen: {drinks_in_canteen} \nThe natives are {-distance_from_natives} miles behind you.")
+            print(f"You quit. \nMiles traveled: {miles_traveled} \nDrinks in canteen: {drinks_in_canteen} \nThe natives are {-distance_from_natives} miles behind you.")
             done = True
         if drinks_in_canteen == 0:
-            print("GAME OVER!! You are out of energy pills")
-            done=True
-        if distance_from_natives >= -15:
+            print("CAUTION!! Your canteen is empty.")
+        if distance_from_natives >= -15 and not distance_from_natives >=0:
             print("The natives are getting close.")
 
         if thirst >= 100:
-            print(f"Your hand fatigue is {thirst}%. \nYou're hands gave out. \nNext time monitor your hand tiredness and REMEMBER to take energy pills")
+            print(f"GAME OVER! \nYour thirst level is {thirst}%. \nYou died of thirst. \nNext time monitor your thirst level.")
             done = True
         if distance_from_natives >= 0:
             print("GAME OVER!! The natives have captured you.")
             done = True
         if miles_traveled >=200:
-            print ("CONGRATULATIONS!! You have escaped from the hands of Evil.")
+            print ("CONGRATULATIONS!! You have crossed the desert and reached an Oasis.")
             done = True
 
 # call the main function
