@@ -3,48 +3,49 @@ import random
 # main loop
 def main():
     """Game instructions"""
-    print("Welcome to the Escape Game. \nYour mission, if you choose to accept it, is to climb up the 200m Kalifa tower. \nYou are being persued by Dr.Gonna Get'cha and his men. Use the following actions to escape.")
+    print("Welcome to Camel! \nYou have stolen a camel to make your way across the great Mobi desert. \nThe natives want their camel back and are chasing you down! Survive your desert trek and outrun the natives.")
 
     """variables and their default values"""
     done = False
     miles_travelled = 0
-    hand_tiredness = 0
-    Bad_guy_distance = -30
-    No_of_energy_pills = 3
+    thirst = 0
+    distance_from_natives = -30
+    water_swigs_left = 3
     while not done:
-        print("\nA. Take an energy pill \nB. Climb fast. \nC. Climb slow \nD. Take a breather \nE. Look down (check status) \nQ. Abort mission ")
-        player_input= input("\nWhat would you like to do? ")
-        
-        if player_input =='a' or 'A' or 'climb fast':
-            hand_tiredness -= 20
-            No_of_energy_pills -=1
-            Bad_guy_distance +=10
-        elif player_input == 'b':
+        print("\nA. Drink from your canteen. \nB. Ahead moderate speed. \nC. Ahead full speed. \nD. Stop for the night. \nE. Status check \nQ. Quit.")
+        # ask for user choice
+        user_choice = input("\nWhat would you like to do? ")
+        if user_choice.upper() == "A":
+            thirst -= 20
+            water_swigs_left -=1
+            distance_from_natives +=10
+        elif user_choice.upper() == 'B':
             random_numbera = random.randint(20, 40)
             miles_travelled += random_numbera
-            hand_tiredness += 15
-            Bad_guy_distance -= random_numbera
-        elif player_input == 'c':
+            thirst += 15
+            distance_from_natives -= random_numbera
+        elif user_choice.upper() == 'C':
             random_numberb = random.randint(5, 15)
             miles_travelled += random_numberb
-            hand_tiredness += 10
-            Bad_guy_distance += random_numberb
-        elif player_input == 'd':
-            hand_tiredness -=20
-            Bad_guy_distance -=15
-        elif player_input == 'e':
-            print(f'You have travelled {miles_travelled} miles, \nDr. Gunna E\'tcha is {Bad_guy_distance} behind you, \nYou have {No_of_energy_pills} number of pills, \nYour tiredness level is {hand_tiredness}%')
-            Bad_guy_distance += 5
-        elif player_input == 'Q':
+            thirst += 10
+            distance_from_natives += random_numberb
+        elif user_choice.upper() == 'D':
+            thirst -=20
+            distance_from_natives -=15
+        elif user_choice.upper() == 'E':
+            print(f'You have travelled {miles_travelled} miles, \nDr. Gunna E\'tcha is {distance_from_natives} behind you, \nYou have {water_swigs_left} number of pills, \nYour tiredness level is {thirst}%')
+            distance_from_natives += 5
+        elif user_choice.upper() == 'Q':
+            print("You quit.")
             done = True
-        if No_of_energy_pills == 0:
-                print("GAME OVER!! You are out of energy pills")
-                done=True
+        if water_swigs_left == 0:
+            print("GAME OVER!! You are out of energy pills")
+            done=True
 
-        if hand_tiredness >= 100:
-            print(f"Your hand fatigue is {hand_tiredness}%. \nYou're hands gave out. \nNext time monitor your hand tiredness and REMEMBER to take energy pills")
+        if thirst >= 100:
+            print(f"Your hand fatigue is {thirst}%. \nYou're hands gave out. \nNext time monitor your hand tiredness and REMEMBER to take energy pills")
             done = True
-        if Bad_guy_distance >= 0:
+        if distance_from_natives >= 0:
             print("GAME OVER!! Dr.Gunna E'tcha has captured you.")
             done = True
         if miles_travelled >=200:
