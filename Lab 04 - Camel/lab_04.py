@@ -1,5 +1,11 @@
 import random
 
+# chance of finding oasis
+def oasis():
+    if random.randrange(20) == 0:
+        drinks_in_canteen = 3
+        print("YOU FOUND AN OASIS!")
+
 # main loop
 def main():
     """Game instructions"""
@@ -20,6 +26,7 @@ def main():
             thirst = 0
             drinks_in_canteen -=1
         elif user_choice.upper() == 'B':
+            oasis()
             random_numbera = random.randint(5, 12)
             miles_traveled += random_numbera
             thirst += 1
@@ -27,6 +34,7 @@ def main():
             distance_from_natives += (random.randint(7,14)-random_numbera)
             print(f"You have traveled {miles_traveled} miles.")
         elif user_choice.upper() == 'C':
+            oasis()
             random_numberb = random.randint(10, 20)
             miles_traveled += random_numberb
             thirst += 1
@@ -44,6 +52,13 @@ def main():
         elif user_choice.upper() == 'Q':
             print(f"You quit. \nMiles traveled: {miles_traveled} \nDrinks in canteen: {drinks_in_canteen} \nThe natives are {-distance_from_natives} miles behind you.")
             done = True
+
+        # camel tiredness check
+        if 6 < camel_tiredness < 9:
+            print("Your camel is getting tired.")
+
+        if camel_tiredness > 8:
+            print("Your camel died of thirst.")
 
         # thirst reminder
         if 4 < thirst < 7:
@@ -63,14 +78,15 @@ def main():
             done = True
 
         # natives have caught up
-        if distance_from_natives >= 0:
+        if distance_from_natives >= 0 and not user_choice == "Q":
             print("GAME OVER!! The natives have captured you.")
             done = True
 
         # to check game success
         if miles_traveled >=200:
-            print ("CONGRATULATIONS!! You have crossed the desert and reached an Oasis.")
+            print ("CONGRATULATIONS!! You have crossed the desert.")
             done = True
+
 
 # call the main function
 main()
