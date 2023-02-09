@@ -1,5 +1,5 @@
 import random
-# at step no. 13.
+
 # main loop
 def main():
     """Game instructions"""
@@ -36,24 +36,38 @@ def main():
         elif user_choice.upper() == 'D':
             distance_from_natives += random.randint(7,14)
             camel_tiredness = 0
-            print("Camel is happy.")
-        elif user_choice.upper() == 'E':
-            print(f'You have traveled {miles_traveled} miles. \nThe natives are {distance_from_natives} miles behind you. \nYou have {drinks_in_canteen} drinks in your canteen left. \nYour tiredness level is {thirst}%')
+            if distance_from_natives <0:
+                print("Camel is happy.")
+        elif user_choice.upper() == 'E' and not distance_from_natives >= 0:
+            print(f'You have traveled {miles_traveled} miles. \nThe natives are {distance_from_natives} miles behind you. \nYou have {drinks_in_canteen} drinks in your canteen left. \nYour thirst level is {thirst}. \nYour tiredness level is {camel_tiredness}%')
             distance_from_natives += 5
         elif user_choice.upper() == 'Q':
             print(f"You quit. \nMiles traveled: {miles_traveled} \nDrinks in canteen: {drinks_in_canteen} \nThe natives are {-distance_from_natives} miles behind you.")
             done = True
+
+        # thirst reminder
+        if 4 < thirst < 7:
+            print("CAUTION!! You are thirsty.")
+
+        # when canteen is empty
         if drinks_in_canteen == 0:
             print("CAUTION!! Your canteen is empty.")
+
+        # natives are close signal
         if distance_from_natives >= -15 and not distance_from_natives >=0:
             print("The natives are getting close.")
 
-        if thirst >= 100:
-            print(f"GAME OVER! \nYour thirst level is {thirst}%. \nYou died of thirst. \nNext time monitor your thirst level.")
+        # died of thirst
+        if thirst > 6:
+            print(f"GAME OVER! \nYou died of thirst. \nNext time monitor your thirst level.")
             done = True
+
+        # natives have caught up
         if distance_from_natives >= 0:
             print("GAME OVER!! The natives have captured you.")
             done = True
+
+        # to check game success
         if miles_traveled >=200:
             print ("CONGRATULATIONS!! You have crossed the desert and reached an Oasis.")
             done = True
