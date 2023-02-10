@@ -1,11 +1,5 @@
 import random
 
-# chance of finding oasis
-def oasis():
-    if random.randrange(20) == 0:
-        drinks_in_canteen = 3
-        print("YOU FOUND AN OASIS!")
-
 # main loop
 def main():
     """Game instructions"""
@@ -18,6 +12,7 @@ def main():
     camel_tiredness = 0
     distance_from_natives = -30
     drinks_in_canteen = 3
+
     while not done:
         print("\nA. Drink from your canteen. \nB. Ahead moderate speed. \nC. Ahead full speed. \nD. Stop for the night. \nE. Status check \nQ. Quit.")
         # ask for user choice
@@ -26,7 +21,9 @@ def main():
             thirst = 0
             drinks_in_canteen -=1
         elif user_choice.upper() == 'B':
-            oasis()
+            if random.randrange(40) == 0:
+                drinks_in_canteen = 3
+                print("YOU FOUND AN OASIS!")
             random_numbera = random.randint(5, 12)
             miles_traveled += random_numbera
             thirst += 1
@@ -34,7 +31,10 @@ def main():
             distance_from_natives += (random.randint(7,14)-random_numbera)
             print(f"You have traveled {miles_traveled} miles.")
         elif user_choice.upper() == 'C':
-            oasis()
+            # chance of finding an oasis
+            if random.randrange(40) == 0:
+                drinks_in_canteen = 3
+                print("YOU FOUND AN OASIS!")
             random_numberb = random.randint(10, 20)
             miles_traveled += random_numberb
             thirst += 1
@@ -47,8 +47,7 @@ def main():
             if distance_from_natives <0:
                 print("Camel is happy.")
         elif user_choice.upper() == 'E' and not distance_from_natives >= 0:
-            print(f'You have traveled {miles_traveled} miles. \nThe natives are {distance_from_natives} miles behind you. \nYou have {drinks_in_canteen} drinks in your canteen left. \nYour thirst level is {thirst}. \nYour tiredness level is {camel_tiredness}%')
-            distance_from_natives += 5
+            print(f'You have traveled {miles_traveled} miles. \nThe natives are {distance_from_natives} miles behind you. \nYou have {drinks_in_canteen} drinks in your canteen left. \nYour thirst level is {thirst}. \nYour tiredness level is {camel_tiredness}')
         elif user_choice.upper() == 'Q':
             print(f"You quit. \nMiles traveled: {miles_traveled} \nDrinks in canteen: {drinks_in_canteen} \nThe natives are {-distance_from_natives} miles behind you.")
             done = True
@@ -58,10 +57,11 @@ def main():
             print("Your camel is getting tired.")
 
         if camel_tiredness > 8:
-            print("Your camel died of thirst.")
+            print("GAME OVER! Your camel died of tiredness.")
+            break
 
         # thirst reminder
-        if 4 < thirst < 7:
+        if 4 < thirst < 7 and not miles_traveled >=0:
             print("CAUTION!! You are thirsty.")
 
         # when canteen is empty
@@ -69,7 +69,7 @@ def main():
             print("CAUTION!! Your canteen is empty.")
 
         # natives are close signal
-        if distance_from_natives >= -15 and not distance_from_natives >=0:
+        if -15 <= distance_from_natives < 0:
             print("The natives are getting close.")
 
         # died of thirst
