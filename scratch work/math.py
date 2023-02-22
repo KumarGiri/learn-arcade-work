@@ -1,3 +1,4 @@
-x = int(10)
-y = int(3)
-print(x/y)
+for row in range (10):
+    for column in range(row+1):
+        print()
+        
