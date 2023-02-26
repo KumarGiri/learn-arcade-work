@@ -1,5 +1,4 @@
 import arcade
-import time
 
 def draw_section_outlines():
     # Draw squares on bottom
