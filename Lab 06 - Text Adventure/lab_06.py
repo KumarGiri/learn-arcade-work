@@ -1,10 +1,91 @@
-#it is clearly seen that self and obj is referring to the same object
+class Room:
+    def __init__(self, description, east, west, north, south):
+        self.description = description
+        self.east = east
+        self.west = west
+        self.north = north
+        self.south = south
 
-class check:
-	def __init__(self):
-		print("Address of self = ",id(self))
+# not in class!
+def main():
+    room_list = []
+    current_room = 0
+    next_room = 0
+    done = False
 
-obj = check()
-print("Address of class object = ",id(obj))
+    # Bedroom one - 0 - (description, east, west, north, south)
+    room0 = Room("You are in the bedroom one, there is a door to the east.", 1, None, None, None)
+    room_list.append(room0)
 
-# this code is Contributed by Samyak Jain
+    # South Hall -1- (description, east, west, north, south)
+    room1 = Room("You are in the South hall, there are doors to your east and west", 2, 0, 4, None)
+    room_list.append(room1)
+
+    # Store Room -2-
+    room2 = Room("You are in the Store room, there is a door to your west", None, 1, None, None)
+    room_list.append(room2)
+
+    #Kitchen -3-
+    room3 = Room("You are in the Kitchen, there are doors to your east and west", 9, 4, None, None)
+    room_list.append(room3)
+
+    # Living Room -4-
+    room4 = Room("You are in the Living room, there are doors in all four directions", 3, 5, 7, 1)
+    room_list.append(room4)
+
+    # Bedroom two -5-
+    room5 = Room ("You are in Bedroom two, there are doors to your east and west", 4, None, None, None)
+    room_list.append(room5)
+
+    # Bathroom -6-
+    room6 = Room("You are in the Bathroom, there is a door to your east", 1, None, None, None)
+    room_list.append(room6)
+
+    # North Hall -7-
+    room7 = Room("You are in the North hall, there are doors in all four directions", 8, 6, 9, 4)
+    room_list.append(room7)
+
+    # Bedroom three -8-
+    room8 = Room("You are in Bedroom three, there is a door to your west", None, 7, None, None)
+    room_list.append(room8)
+
+    # Balcony -9-
+    room9 =Room("You have arrived at the Balcony. CONGRATULATIONS!!", None, None, None, 7)
+    room_list.append(room9)
+
+
+    print(room_list[current_room].east)
+
+    while not done:
+        print("")
+        print(room_list[current_room].description)
+        direction = input("Which way would you like to go? (e, w, n, s)").lower()
+        # To exit the game
+        if direction[0] == 'q':
+            print('You have exited the game.')
+            break
+        # Checking directions
+        if direction[0] == 'e':
+            next_room = room_list[current_room].east
+
+        elif direction[0] == 'w':
+            next_room = room_list[current_room].west
+
+        elif direction[0] == 'n':
+            next_room = room_list[current_room].north
+
+        elif direction[0] == 's':
+            next_room = room_list[current_room].south
+
+        else:
+            print("Please pick a valid direction.")
+            continue
+
+        # check for valid choice
+        if next_room == None:
+            print("You can't go that way!")
+            continue
+
+        # if all is well, set new room
+        current_room = next_room
+main()
