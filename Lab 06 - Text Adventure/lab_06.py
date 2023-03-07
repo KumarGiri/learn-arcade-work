@@ -1,3 +1,4 @@
+# the class to create different rooms
 class Room:
     def __init__(self, description, east, west, north, south):
         self.description = description
@@ -18,43 +19,40 @@ def main():
     room_list.append(room0)
 
     # South Hall -1- (description, east, west, north, south)
-    room1 = Room("You are in the South hall, there are doors to your east and west", 2, 0, 4, None)
+    room1 = Room("You are in the south hall, there are doors to your east, west, and north.", 2, 0, 4, None)
     room_list.append(room1)
 
     # Store Room -2-
-    room2 = Room("You are in the Store room, there is a door to your west", None, 1, None, None)
+    room2 = Room("You are in the store room, there is a door to your west", None, 1, None, None)
     room_list.append(room2)
 
     #Kitchen -3-
-    room3 = Room("You are in the Kitchen, there are doors to your east and west", 9, 4, None, None)
+    room3 = Room("You are in the kitchen, there are doors to your east and west", 9, 4, None, None)
     room_list.append(room3)
 
     # Living Room -4-
-    room4 = Room("You are in the Living room, there are doors in all four directions", 3, 5, 7, 1)
+    room4 = Room("You are in the living room, there are doors in all four directions", 3, 5, 7, 1)
     room_list.append(room4)
 
     # Bedroom two -5-
-    room5 = Room ("You are in Bedroom two, there are doors to your east and west", 4, None, None, None)
+    room5 = Room ("You are in bedroom two, there are doors to your east and west", 4, None, None, None)
     room_list.append(room5)
 
     # Bathroom -6-
-    room6 = Room("You are in the Bathroom, there is a door to your east", 1, None, None, None)
+    room6 = Room("You are in the bathroom, there is a door to your east", 1, None, None, None)
     room_list.append(room6)
 
     # North Hall -7-
-    room7 = Room("You are in the North hall, there are doors in all four directions", 8, 6, 9, 4)
+    room7 = Room("You are in the north hall, there are doors in all four directions", 8, 6, 9, 4)
     room_list.append(room7)
 
     # Bedroom three -8-
-    room8 = Room("You are in Bedroom three, there is a door to your west", None, 7, None, None)
+    room8 = Room("You are in bedroom three, there is a door to your west", None, 7, None, None)
     room_list.append(room8)
 
     # Balcony -9-
-    room9 =Room("You have arrived at the Balcony. CONGRATULATIONS!!", None, None, None, 7)
+    room9 =Room("You have arrived on the balcony, enjoy the view. To go back inside, there is a door in your south.", None, None, None, 7)
     room_list.append(room9)
-
-
-    print(room_list[current_room].east)
 
     while not done:
         print("")
@@ -64,7 +62,7 @@ def main():
         if direction[0] == 'q':
             print('You have exited the game.')
             break
-        # Checking directions
+        # Checking directions to enter different rooms
         if direction[0] == 'e':
             next_room = room_list[current_room].east
 
