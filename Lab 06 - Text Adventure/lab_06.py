@@ -26,7 +26,7 @@ def main():
     room2 = Room("You are in the store room, there is a door to your west", None, 1, None, None)
     room_list.append(room2)
 
-    #Kitchen -3-
+    # Kitchen -3-
     room3 = Room("You are in the kitchen, there are doors to your east and west", 9, 4, None, None)
     room_list.append(room3)
 
@@ -58,6 +58,7 @@ def main():
         print("")
         print(room_list[current_room].description)
         direction = input("Which way would you like to go? (e, w, n, s)").lower()
+
         # To exit the game
         if direction[0] == 'q':
             print('You have exited the game.')
