@@ -7,7 +7,9 @@ import background
 # --- Constants ---
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+MOVEMENT_SPEED = 3
 
+# class to draw sun
 class Sun:
     def __init__(self, position_x, position_y, radius, color):
         self.position_x = position_x
@@ -17,8 +19,41 @@ class Sun:
 
     def draw(self):
 
-        arcade.draw_circle_filled(self.position_x, self.position_y, self.radius, self.color)
         background.sun(self.position_x, self.position_y)
+
+class moon:
+    def __init__(self, position_x, position_y,change_x, change_y, radius):
+        self.position_x = position_x
+        self.position_y = position_y
+        self.change_x = change_x
+        self.change_y = change_y
+        self.radius = radius
+
+
+    def render(self):
+        background.moon(self.position_x, self.position_y, 10)
+
+    def update(self):
+        self.wall = arcade.load_sound("Lab 07 - User Control\wall.mp3")
+        self.position_y += self.change_y
+        self.position_x += self.change_x
+
+        if self.position_x < 10+self.radius:
+            self.position_x = 10+self.radius
+
+        if self.position_x > SCREEN_WIDTH - (10+self.radius):
+            self.position_x = SCREEN_WIDTH - (10+self.radius)
+
+        if self.position_y < 10+self.radius:
+            self.position_y = 10+self.radius
+
+        if self.position_y > SCREEN_HEIGHT - (10+self.radius):
+            self.position_y = SCREEN_HEIGHT - (10+self.radius)
+
+        if self.position_x == 10+self.radius:
+            arcade.play_sound(self.wall)
+            
+
 
 
 class MyGame(arcade.Window):
@@ -36,6 +71,8 @@ class MyGame(arcade.Window):
         # draw the Sun
         self.Sun = Sun(50,50, 18, arcade.color.RED)
 
+        self.moon = moon(100, 100, 0, 0, 10)
+
     def on_draw(self):
         arcade.start_render()
         arcade.set_background_color(arcade.color.WHITE)
@@ -44,11 +81,36 @@ class MyGame(arcade.Window):
         background.draw()
 
         self.Sun.draw()
+        self.moon.render()
+    def update(self, delta_time):
+        self.moon.update()
 
     def on_mouse_motion(self, x, y, dx, dy):
 
         self.Sun.position_x = x
         self.Sun.position_y = y
+
+    def on_key_press(self, key, modifiers):
+        self.click=arcade.load_sound("Lab 07 - User Control\clicks.wav")
+        if key == arcade.key.LEFT:
+            self.moon.change_x = -MOVEMENT_SPEED
+            arcade.play_sound(self.click)
+        elif key == arcade.key.RIGHT:
+            self.moon.change_x = MOVEMENT_SPEED
+            arcade.play_sound(self.click)
+        elif key == arcade.key.UP:
+            self.moon.change_y = MOVEMENT_SPEED
+            arcade.play_sound(self.click)
+        elif key == arcade.key.DOWN:
+            self.moon.change_y = -MOVEMENT_SPEED
+            arcade.play_sound(self.click)
+        elif key == arcade.key.SPACE:
+            self.moon.change_x = 0
+            self.moon.change_y = 0
+
+
+
+
 
 def main():
     window = MyGame()

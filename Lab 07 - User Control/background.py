@@ -57,3 +57,12 @@ def sun(x, y, radius= 20):
         for j in range(20,380, 40):
             arcade.draw_line(x+45*math.sin(math.radians(j)), y+45*math.cos(math.radians(j)), x+30*math.sin(math.radians(j)), y+30*math.cos(math.radians(j)), arcade.color.SUNRAY, 2)
     arcade.draw_circle_filled(x, y, radius, arcade.color.SUNGLOW)
+
+
+# draw the moon
+def moon(x, y, radius):
+     arcade.draw_circle_filled(x, y, radius, arcade.color.WHITE)
+     arcade.draw_triangle_filled(x, y+radius, x+radius, y, x+10+radius, y+10+radius, arcade.color.WHITE)
+     arcade.draw_triangle_filled(x, y-radius, x+10+radius, y-(10+radius), x+radius, y, arcade.color.WHITE)
+     arcade.draw_triangle_filled(x, y+radius, x-(10+radius), y+(10+radius), x-radius, y, arcade.color.WHITE)
+     arcade.draw_triangle_filled(x-radius, y, x-(10+radius), y-(10+radius), x, y-radius, arcade.color.WHITE)
