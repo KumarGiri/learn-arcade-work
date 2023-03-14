@@ -18,7 +18,6 @@ class Sun:
         self.color = color
 
     def draw(self):
-
         background.sun(self.position_x, self.position_y)
 
 class moon:
@@ -28,7 +27,6 @@ class moon:
         self.change_x = change_x
         self.change_y = change_y
         self.radius = radius
-
 
     def render(self):
         background.moon(self.position_x, self.position_y, 10)
@@ -52,9 +50,6 @@ class moon:
 
         if self.position_x == 10+self.radius:
             arcade.play_sound(self.wall)
-            
-
-
 
 class MyGame(arcade.Window):
     """ Our Custom Window Class"""
@@ -70,7 +65,6 @@ class MyGame(arcade.Window):
 
         # draw the Sun
         self.Sun = Sun(50,50, 18, arcade.color.RED)
-
         self.moon = moon(100, 100, 0, 0, 10)
 
     def on_draw(self):
@@ -86,7 +80,6 @@ class MyGame(arcade.Window):
         self.moon.update()
 
     def on_mouse_motion(self, x, y, dx, dy):
-
         self.Sun.position_x = x
         self.Sun.position_y = y
 
@@ -108,13 +101,8 @@ class MyGame(arcade.Window):
             self.moon.change_x = 0
             self.moon.change_y = 0
 
-
-
-
-
 def main():
     window = MyGame()
     arcade.run()
-
 
 main()
