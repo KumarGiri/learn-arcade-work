@@ -3,7 +3,6 @@
 import arcade
 import background
 
-
 # --- Constants ---
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -12,6 +11,7 @@ MOVEMENT_SPEED = 3
 # class to draw sun
 class Sun:
     def __init__(self, position_x, position_y, radius, color):
+        """Sun class constructor"""
         self.position_x = position_x
         self.position_y = position_y
         self.radius = radius
@@ -27,12 +27,13 @@ class moon:
         self.change_x = change_x
         self.change_y = change_y
         self.radius = radius
+        self.wall = arcade.load_sound("Lab 07 - User Control\wall.mp3")
+        self.sound = None
 
     def render(self):
         background.moon(self.position_x, self.position_y, 10)
 
     def update(self):
-        self.wall = arcade.load_sound("Lab 07 - User Control\wall.mp3")
         self.position_y += self.change_y
         self.position_x += self.change_x
 
@@ -48,8 +49,10 @@ class moon:
         if self.position_y > SCREEN_HEIGHT - (10+self.radius):
             self.position_y = SCREEN_HEIGHT - (10+self.radius)
 
-        if self.position_x == 10+self.radius:
-            arcade.play_sound(self.wall)
+        # play sound if colliding with wall via x parameter
+        if self.position_x == 10+self.radius or self.position_x == SCREEN_WIDTH - (10+self.radius) or self.position_y == 10+self.radius or self.position_y == SCREEN_HEIGHT - (10+self.radius):
+            if not self.sound or not self.sound.playing:
+                self.sound = arcade.play_sound(self.wall)
 
 class MyGame(arcade.Window):
     """ Our Custom Window Class"""

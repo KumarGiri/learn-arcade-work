@@ -1,55 +1,111 @@
+import random
 import arcade
+
+# --- Constants ---
+SPRITE_SCALING_PLAYER = 0.8
+SPRITE_SCALING_COIN = 0.5
+COIN_COUNT = 50
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 
-def draw_grass():
-    """ Draw the ground """
-    arcade.draw_lrtb_rectangle_filled(0, SCREEN_WIDTH, SCREEN_HEIGHT / 3, 0, arcade.color.AIR_SUPERIORITY_BLUE)
+class MyGame(arcade.Window):
+    """ Our custom Window Class"""
+
+    def __init__(self):
+        """ Initializer """
+        # Call the parent class initializer
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprite Example")
+
+        # Variables that will hold sprite lists
+        self.player_list = None
+        self.coin_list = None
+
+        # Set up the player info
+        self.player_sprite = None
+        self.score = 0
+
+        # Don't show the mouse cursor
+        self.set_mouse_visible(False)
+
+        arcade.set_background_color(arcade.color.AMAZON)
+
+    def setup(self):
+        """ Set up the game and initialize the variables. """
+
+        # Sprite lists
+        self.player_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
+
+        # Score
+        self.score = 0
+
+        # Set up the player
+        # Character image from kenney.nl
+        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png"
+                                           , SPRITE_SCALING_PLAYER)
+        self.player_sprite.center_x = 50
+        self.player_sprite.center_y = 50
+        self.player_list.append(self.player_sprite)
+
+        # Create the coins
+        for i in range(COIN_COUNT):
+
+            # Create the coin instance
+            # Coin image from kenney.nl
+            coin = arcade.Sprite(":resources:images/items/gemBlue.png", SPRITE_SCALING_COIN)
+
+            # Position the coin
+            coin.center_x = random.randrange(SCREEN_WIDTH)
+            coin.center_y = random.randrange(SCREEN_HEIGHT)
+
+            # Add the coin to the lists
+            self.coin_list.append(coin)
+
+    def on_draw(self):
+        """ Draw everything """
+        arcade.start_render()
+        self.coin_list.draw()
+        self.player_list.draw()
+
+        # Put the text on the screen.
+        output = f"Score: {self.score}"
+        arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
+
+    def on_mouse_motion(self, x, y, dx, dy):
+        """ Handle Mouse Motion """
+
+        # Move the center of the player sprite to match the mouse x, y
+        self.player_sprite.center_x = x
+        self.player_sprite.center_y = y
 
 
-def draw_snow_person(x, y):
-    """ Draw a snow person """
-
-    # Draw a point at x, y for reference
-    arcade.draw_point(x, y, arcade.color.RED, 5)
-
-    # Snow
-    arcade.draw_circle_filled(x, 60 + y, 60, arcade.color.WHITE)
-    arcade.draw_circle_filled(x, 140 + y, 50, arcade.color.WHITE)
-    arcade.draw_circle_filled(x, 200 + y, 40, arcade.color.WHITE)
-
-    # Eyes
-    arcade.draw_circle_filled(x - 15, 210 + y, 5, arcade.color.BLACK)
-    arcade.draw_circle_filled(x + 15, 210 + y, 5, arcade.color.BLACK)
 
 
-def on_draw(delta_time):
-    """ Draw everything """
-    arcade.start_render()
+    def update(self, delta_time):
+        """ Movement and game logic """
 
-    draw_grass()
-    draw_snow_person(on_draw.snow_person1_x, 140)
-    draw_snow_person(450, 180)
+        # Call update on all sprites (The sprites don't do much in this
+        # example though.)
+        self.coin_list.update()
 
-    # Add one to the x value, making the snow person move right
-    # Negative numbers move left. Larger numbers move faster.
-    on_draw.snow_person1_x += 1
+        # Generate a list of all sprites that collided with the player.
+        coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+                                                              self.coin_list)
 
-
-# Create a value that our on_draw.snow_person1_x will start at.
-on_draw.snow_person1_x = 150
+        # Loop through each colliding sprite, remove it, and add to the score.
+        for coin in coins_hit_list:
+            coin.remove_from_sprite_lists()
+            self.score += 1
 
 
 def main():
-    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing with Functions")
-    arcade.set_background_color(arcade.color.DARK_BLUE)
-
-    # Call on_draw every 60th of a second.
-    arcade.schedule(on_draw, 1/60)
+    """ Main method """
+    window = MyGame()
+    window.setup()
     arcade.run()
 
 
-# Call the main function to get the program started.
-main()
+if __name__ == "__main__":
+    main()
