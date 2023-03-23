@@ -135,9 +135,6 @@ class MyGame(arcade.Window):
 
         # to check if all coins have been collected
         if len(self.coin_sprite_list) ==0:
-            arcade.set_background_color(arcade.color.WHITE)
-            for rock in self.rock_sprite_list:
-                rock.remove_from_sprite_lists()
             arcade.draw_text("GAME OVER", 250, 300, arcade.color.RED, 40)
 
     def update(self, deltatime):
