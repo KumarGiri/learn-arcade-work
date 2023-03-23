@@ -163,9 +163,8 @@ class MyGame(arcade.Window):
             for rock in rock_hit_list:
                 rock.remove_from_sprite_lists()
                 self.score-=1
-                if not self.sound or not self.sound.playing:
-                    self.sound=arcade.play_sound(self.rock_sound)
-        
+                self.sound=arcade.play_sound(self.rock_sound)
+
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
             self.tank_sprite.change_y +=TANK_SPEED
