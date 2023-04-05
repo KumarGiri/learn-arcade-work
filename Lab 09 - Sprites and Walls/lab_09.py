@@ -37,7 +37,8 @@ class MyGame(arcade.Window):
         Initializer
         """
         super().__init__(width, height, title, resizable=True)
-        # sounds
+
+        # sound
         self.coin_sound = arcade.load_sound("Lab 09 - Sprites and Walls\clicks.wav")
 
         # Sprite lists
@@ -62,11 +63,9 @@ class MyGame(arcade.Window):
         self.score= 0
 
         # We scroll the 'sprite world' but not the GUI.
-
         self.camera_sprites = arcade.Camera(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
 
         self.camera_gui = arcade.Camera(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
-
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -92,6 +91,7 @@ class MyGame(arcade.Window):
                     grass.center_x = y
                     grass.center_y = x
                     self.wall_list.append(grass)
+
         list = [115, 540, 1150, 1380]
         for x in list:
             for y in range (70, 1450, 35):
@@ -146,6 +146,7 @@ class MyGame(arcade.Window):
 
                 # See if the coin is hitting a wall
                 wall_hit_list = arcade.check_for_collision_with_list(self.coin, self.wall_list)
+                
                 # See if the coin is hitting another coin
                 coin_hit_list = arcade.check_for_collision_with_list(self.coin, self.coin_list)
                 if len(wall_hit_list) == 0 and len(coin_hit_list) == 0:
