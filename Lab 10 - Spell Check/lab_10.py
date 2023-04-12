@@ -16,29 +16,27 @@ def main():
         dictionary_word_list.append(word)
     dictionary.close()
 
-
 # Linear Search
     print("--- Linear Search ---")
 
     Alice = open("Lab 10 - Spell Check\AliceInWonderLand200.txt")
     current_line_position = 0
-    
+
+ 
+
     for line in Alice:
         line =line.strip()
         word_list = split_line(line)
+        current_line_position +=1
         for word in word_list:
-        
-        # Loop until you reach the end of the list, or the value at the
-        # current position is equal to the key
-            while current_line_position < len(line) and dictionary_word_list[current_line_position] != word.upper():
-
-            # Advance to the next item in the list
-                current_line_position += 1
-
-                if current_line_position < len(line):
-                    print("The word is at position", current_line_position)
-                else:
-                    print(f"The word was not in the list {word_list[current_line_position]}.")
+            current_d_word_position = 0
+            while current_d_word_position < len(dictionary_word_list) and dictionary_word_list[current_d_word_position]!=word.upper():
+                current_d_word_position += 1
+            
+            if current_d_word_position < len(dictionary_word_list):
+                continue
+            else:
+                print(f"line {current_line_position} Possible error word: {word}.")
             
 
 
