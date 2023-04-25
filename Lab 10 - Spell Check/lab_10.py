@@ -93,10 +93,6 @@ def main():
     linear_search()
     binary_search()
 
-
-
-    
-                
 main()
 
         

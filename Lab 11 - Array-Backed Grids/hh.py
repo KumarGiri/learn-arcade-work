@@ -110,28 +110,6 @@ class MyGame(arcade.Window):
                 self.grid[row+1][column] = 1
             else:
                 self.grid[row+1][column] =0
-        
-                                            # part 2 codes
-        # total selections
-        no_of_cells_selected=0
-        for row in range (ROW_COUNT):
-            for column in range (COLUMN_COUNT):
-                if self.grid[row][column]==1:
-                    no_of_cells_selected +=1
-        print(f'There are a total of {no_of_cells_selected} cells selected')
-        
-        # number of cells in each row
-        no_of_cells=[]
-        for row in range(ROW_COUNT):
-            cells=0
-            for column in range (COLUMN_COUNT):
-                if self.grid[row][column]==1:
-                    cells+=1
-            no_of_cells.append(cells)
-        for row in range (ROW_COUNT):
-            print(f'The row {row+1} has {no_of_cells[row]} of cells selected')
-                
-        
 
 
 def main():
