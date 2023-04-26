@@ -16,11 +16,8 @@ MARGIN = 5
 SCREEN_WIDTH = (WIDTH + MARGIN) * COLUMN_COUNT + MARGIN
 SCREEN_HEIGHT = (HEIGHT + MARGIN) * ROW_COUNT + MARGIN
 
-class MyGame(arcade.Window):
-    """
-    Main application class.
-    """
 
+class MyGame(arcade.Window):
     def __init__(self, width, height):
         """
         Set up the application.
@@ -63,64 +60,64 @@ class MyGame(arcade.Window):
                 arcade.draw_rectangle_filled(x, y, WIDTH, HEIGHT, color)
 
     def flip_cell(self, row, column):
-       if 0 <= row < ROW_COUNT and 0 <= column < COLUMN_COUNT:
-          self.grid[row][column] = 1 - self.grid[row][column]
-          
+        if 0 <= row < ROW_COUNT and 0 <= column < COLUMN_COUNT:
+            self.grid[row][column] = 1 - self.grid[row][column]
+
     def on_mouse_press(self, x, y, button, modifiers):
 
-         # Change the x/y screen coordinates to grid coordinates
-         column = x // (WIDTH + MARGIN)
-         row = y // (HEIGHT + MARGIN)
+        # Change the x/y screen coordinates to grid coordinates
+        column = x // (WIDTH + MARGIN)
+        row = y // (HEIGHT + MARGIN)
 
-         coordinates=[]
-         for a in range (ROW_COUNT):
-            for b in range (COLUMN_COUNT):
-                coordinates.append([a,b])
+        coordinates = []
+        for a in range(ROW_COUNT):
+            for b in range(COLUMN_COUNT):
+                coordinates.append([a, b])
 
-         # Make sure we are on-grid. It is possible to click in the upper right
-         # corner in the margin and go to a grid location that doesn't exist
+        # Make sure we are on-grid. It is possible to click in the upper right
+        # corner in the margin and go to a grid location that doesn't exist
 
-         if row < ROW_COUNT and column < COLUMN_COUNT:
+        if row < ROW_COUNT and column < COLUMN_COUNT:
             self.flip_cell(row, column)
             self.flip_cell(row + 1, column)
             self.flip_cell(row - 1, column)
-            self.flip_cell(row, column -1)
-            self.flip_cell(row, column+1)
-        
-                                            # part 2 codes
-         # total selections
-         no_of_cells_selected=0
-         no_of_cells=[]
+            self.flip_cell(row, column - 1)
+            self.flip_cell(row, column + 1)
 
-         for row in range (ROW_COUNT):
-            continuous_count=0
-            cells=0        
-            for column in range (COLUMN_COUNT):
-                if self.grid[row][column]==1:
-                    no_of_cells_selected +=1
-                    continuous_count+=1
-                    cells+=1
-            if continuous_count>2:
-                print(f'There are {continuous_count} continuous cells on {row+1} row')
+            # part 2 codes
+        # total selections
+        no_of_cells_selected = 0
+        no_of_cells = []
+
+        for row in range(ROW_COUNT):
+            continuous_count = 0
+            cells = 0
+            for column in range(COLUMN_COUNT):
+                if self.grid[row][column] == 1:
+                    no_of_cells_selected += 1
+                    continuous_count += 1
+                    cells += 1
+            if continuous_count > 2:
+                print(f'There are {continuous_count} continuous cells on {row + 1} row')
             no_of_cells.append(cells)
-         print(f'There are a total of {no_of_cells_selected} cells selected')
-         for row in range (ROW_COUNT):
-            print(f'The row {row+1} has {no_of_cells[row]} cells selected')
-            
-        # column cells
-                    
-         no_of_cells_in_column=[]           
-         for column in range (COLUMN_COUNT):
-            columns=0
-            for row in range (ROW_COUNT):
-               if self.grid[row][column]==1:
-                 columns+=1
-            no_of_cells_in_column.append(columns)
-         for column in range (COLUMN_COUNT):
-           print(f'The column {column+1} has {no_of_cells_in_column[column]} cells selected')
-        
-def main():
+        print(f'There are a total of {no_of_cells_selected} cells selected')
+        for row in range(ROW_COUNT):
+            print(f'The row {row + 1} has {no_of_cells[row]} cells selected')
 
+        # column cells
+
+        no_of_cells_in_column = []
+        for column in range(COLUMN_COUNT):
+            columns = 0
+            for row in range(ROW_COUNT):
+                if self.grid[row][column] == 1:
+                    columns += 1
+            no_of_cells_in_column.append(columns)
+        for column in range(COLUMN_COUNT):
+            print(f'The column {column + 1} has {no_of_cells_in_column[column]} cells selected')
+
+
+def main():
     window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.run()
 

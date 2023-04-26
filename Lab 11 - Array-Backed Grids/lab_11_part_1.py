@@ -1,9 +1,3 @@
-"""
-Array Backed Grid
-
-Show how to use a two-dimensional list/array to back the display of a
-grid on-screen.
-"""
 import arcade
 
 # Set how many rows and columns we will have
@@ -24,10 +18,6 @@ SCREEN_HEIGHT = (HEIGHT + MARGIN) * ROW_COUNT + MARGIN
 
 
 class MyGame(arcade.Window):
-    """
-    Main application class.
-    """
-
     def __init__(self, width, height):
         """
         Set up the application.
@@ -69,73 +59,33 @@ class MyGame(arcade.Window):
                 # Draw the box
                 arcade.draw_rectangle_filled(x, y, WIDTH, HEIGHT, color)
 
+    def flip_cell(self, row, column):
+        if 0 <= row < ROW_COUNT and 0 <= column < COLUMN_COUNT:
+            self.grid[row][column] = 1 - self.grid[row][column]
+
     def on_mouse_press(self, x, y, button, modifiers):
-        """
-        Called when the user presses a mouse button.
-        """
 
         # Change the x/y screen coordinates to grid coordinates
         column = x // (WIDTH + MARGIN)
         row = y // (HEIGHT + MARGIN)
 
-        coordinates=[]
-        for a in range (ROW_COUNT):
-            for b in range (COLUMN_COUNT):
-                coordinates.append([a,b])
-        valid =False
+        coordinates = []
+        for a in range(ROW_COUNT):
+            for b in range(COLUMN_COUNT):
+                coordinates.append([a, b])
 
         # Make sure we are on-grid. It is possible to click in the upper right
         # corner in the margin and go to a grid location that doesn't exist
-        if row < ROW_COUNT and column < COLUMN_COUNT and [a,b] in coordinates:
-            valid =True
-            
-        if valid:
-            if self.grid[row][column] == 0:
-                self.grid[row][column] =1
-            else:
-                self.grid[row][column] =0
-            if self.grid[row][column-1] == 0:
-                self.grid[row][column-1] =1
-            else:
-                self.grid[row][column-1] =0
-            if self.grid[row][column+1] == 0:
-                self.grid[row][column+1] =1
-            else:
-                self.grid[row][column+1] =0
-            if self.grid[row-1][column] == 0:
-                self.grid[row-1][column] =1
-            else:
-                self.grid[row-1][column] =0
-            if self.grid[row+1][column] == 0:
-                self.grid[row+1][column] = 1
-            else:
-                self.grid[row+1][column] =0
-        
-                                            # part 2 codes
-        # total selections
-        no_of_cells_selected=0
-        for row in range (ROW_COUNT):
-            for column in range (COLUMN_COUNT):
-                if self.grid[row][column]==1:
-                    no_of_cells_selected +=1
-        print(f'There are a total of {no_of_cells_selected} cells selected')
-        
-        # number of cells in each row
-        no_of_cells=[]
-        for row in range(ROW_COUNT):
-            cells=0
-            for column in range (COLUMN_COUNT):
-                if self.grid[row][column]==1:
-                    cells+=1
-            no_of_cells.append(cells)
-        for row in range (ROW_COUNT):
-            print(f'The row {row+1} has {no_of_cells[row]} of cells selected')
-                
-        
+
+        if row < ROW_COUNT and column < COLUMN_COUNT:
+            self.flip_cell(row, column)
+            self.flip_cell(row + 1, column)
+            self.flip_cell(row - 1, column)
+            self.flip_cell(row, column - 1)
+            self.flip_cell(row, column + 1)
 
 
 def main():
-
     window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.run()
 
