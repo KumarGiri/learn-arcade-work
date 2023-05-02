@@ -15,7 +15,7 @@ import math
 SPRITE_SCALING_TANK = 0.5
 SPRITE_SCALING_COIN = 0.2
 SPRITE_SCALING_ROCK = 0.3
-COIN_COUNT = 50
+COIN_COUNT = 5
 ROCK_COUNT = 20
 TANK_SPEED = 1
 ROCK_SPEED = 2
@@ -86,8 +86,8 @@ class MyGame(arcade.Window):
         # Call the parent class initializer
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprite Example")
         arcade.set_background_color(arcade.color.POWDER_BLUE)
-        self.coin_sound = arcade.load_sound("Lab 08 - Sprites\clicks.wav")
-        self.rock_sound = arcade.load_sound("Lab 08 - Sprites\wall.mp3")
+        self.coin_sound = arcade.load_sound("clicks.wav")
+        self.rock_sound = arcade.load_sound("wall.mp3")
 
         self.tank_sprite_list= None
         self.coin_sprite_list= None
@@ -103,7 +103,7 @@ class MyGame(arcade.Window):
         self.tank_sprite_list = arcade.SpriteList()
         self.rock_sprite_list = arcade.SpriteList()
 
-        self.tank_sprite = Tank("Lab 08 - Sprites\\tank.png", SPRITE_SCALING_TANK)
+        self.tank_sprite = Tank("tank.png", SPRITE_SCALING_TANK)
         self.tank_sprite.center_x = 50
         self.tank_sprite.center_y = 50
         self.tank_sprite_list.append(self.tank_sprite)
@@ -111,13 +111,13 @@ class MyGame(arcade.Window):
 
         # draw coins
         for i in range(COIN_COUNT):
-            self.coin_sprite = Coin("Lab 08 - Sprites\coin.png", SPRITE_SCALING_COIN)
+            self.coin_sprite = Coin("coin.png", SPRITE_SCALING_COIN)
             self.coin_sprite.center_x= random.randrange(SCREEN_WIDTH)
             self.coin_sprite.center_y= random.randrange(SCREEN_HEIGHT)
             self.coin_sprite_list.append(self.coin_sprite)
 
         for i in range(ROCK_COUNT):
-            rock_sprite = Rock("Lab 08 - Sprites\stone.png", SPRITE_SCALING_ROCK)
+            rock_sprite = Rock("stone.png", SPRITE_SCALING_ROCK)
             rock_sprite.center_x = random.randrange(SCREEN_WIDTH)
             rock_sprite.center_y= random.randrange(SCREEN_HEIGHT)
             self.rock_sprite_list.append(rock_sprite)

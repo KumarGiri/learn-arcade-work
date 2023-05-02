@@ -37,9 +37,8 @@ class MyGame(arcade.Window):
         Initializer
         """
         super().__init__(width, height, title, resizable=True)
-
-        # sound
-        self.coin_sound = arcade.load_sound("Lab 09 - Sprites and Walls\clicks.wav")
+        # sounds
+        self.coin_sound = arcade.load_sound("clicks.wav")
 
         # Sprite lists
         self.player_list = None
@@ -63,9 +62,11 @@ class MyGame(arcade.Window):
         self.score= 0
 
         # We scroll the 'sprite world' but not the GUI.
+
         self.camera_sprites = arcade.Camera(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
 
         self.camera_gui = arcade.Camera(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
+
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -77,7 +78,7 @@ class MyGame(arcade.Window):
         self.boundary_list= arcade.SpriteList()
 
         # Set up the player
-        self.player_sprite = arcade.Sprite("Lab 09 - Sprites and Walls\images\player_idle.png",
+        self.player_sprite = arcade.Sprite("images/player_idle.png",
                                            scale=0.4)
         self.player_sprite.center_x = 256
         self.player_sprite.center_y = 512
@@ -87,15 +88,14 @@ class MyGame(arcade.Window):
         for x in range(200, 1550, 210):
             for y in range(70, 1520, 35):
                 if random.randrange(4) == 2:
-                    grass = arcade.Sprite("Lab 09 - Sprites and Walls\images\grass.png", SPRITE_SCALING)
+                    grass = arcade.Sprite("images/grass.png", SPRITE_SCALING)
                     grass.center_x = y
                     grass.center_y = x
                     self.wall_list.append(grass)
-
         list = [115, 540, 1150, 1380]
         for x in list:
             for y in range (70, 1450, 35):
-                wall = arcade.Sprite("Lab 09 - Sprites and Walls\images\wall.png", SPRITE_SCALING)
+                wall = arcade.Sprite("images/wall.png", SPRITE_SCALING)
                 wall.center_x = y
                 wall.center_y = x
                 self.wall_list.append(wall)
@@ -103,7 +103,7 @@ class MyGame(arcade.Window):
         # bottom fence
         for row in range(0,1600, 30):
             for column in range(1):
-                boundary = arcade.Sprite("Lab 09 - Sprites and Walls\images\\fenceLong.png", FENCE_SCALING)
+                boundary = arcade.Sprite("images/fenceLong.png", FENCE_SCALING)
                 boundary.center_x = row
                 boundary.center_y = column
                 self.boundary_list.append(boundary)
@@ -111,7 +111,7 @@ class MyGame(arcade.Window):
         # left fence
         for row in range(0,1600, 30):
             for column in range(1):
-                boundary = arcade.Sprite("Lab 09 - Sprites and Walls\images\\fenceLong.png", FENCE_SCALING, flipped_diagonally=True, flipped_horizontally=True)
+                boundary = arcade.Sprite("images/fenceLong.png", FENCE_SCALING, flipped_diagonally=True, flipped_horizontally=True)
                 boundary.center_x = column
                 boundary.center_y = row
                 self.boundary_list.append(boundary)
@@ -119,7 +119,7 @@ class MyGame(arcade.Window):
         # top fence
         for row in range(1):
             for column in range(0,1600, 30):
-                boundary = arcade.Sprite("Lab 09 - Sprites and Walls\images\\fenceLong.png", FENCE_SCALING, flipped_vertically=True)
+                boundary = arcade.Sprite("images/fenceLong.png", FENCE_SCALING, flipped_vertically=True)
                 boundary.center_x = column
                 boundary.center_y = 1600
                 self.boundary_list.append(boundary)
@@ -127,7 +127,7 @@ class MyGame(arcade.Window):
         # right fence
         for row in range(0,1620, 30):
             for column in range(1):
-                boundary = arcade.Sprite("Lab 09 - Sprites and Walls\images\\fenceLong.png", FENCE_SCALING, flipped_diagonally=True)
+                boundary = arcade.Sprite("images/fenceLong.png", FENCE_SCALING, flipped_diagonally=True)
                 boundary.center_x = 1600
                 boundary.center_y = row
                 self.boundary_list.append(boundary)
@@ -136,7 +136,7 @@ class MyGame(arcade.Window):
 
         # draw coins
         for num in range(COIN_COUNT):
-            self.coin = Coin("Lab 09 - Sprites and Walls\images\coin.png", COIN_SCALING)
+            self.coin = Coin("images\coin.png", COIN_SCALING)
             coin_placed_successfully = False
             while not coin_placed_successfully:
 
@@ -146,7 +146,6 @@ class MyGame(arcade.Window):
 
                 # See if the coin is hitting a wall
                 wall_hit_list = arcade.check_for_collision_with_list(self.coin, self.wall_list)
-                
                 # See if the coin is hitting another coin
                 coin_hit_list = arcade.check_for_collision_with_list(self.coin, self.coin_list)
                 if len(wall_hit_list) == 0 and len(coin_hit_list) == 0:
