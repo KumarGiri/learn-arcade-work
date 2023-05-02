@@ -44,13 +44,6 @@ class Star(arcade.Sprite):
         self.angle += self.change_angle
 
 
-class Coin(arcade.Sprite):
-    def __init__(self, file_name, sprite_scaling):
-        super().__init__(file_name, sprite_scaling)
-        self.center_x = 0
-        self.center_y = 0
-
-
 # Player avatar
 class Player(arcade.Sprite):
     def __init__(self, file_name, sprite_scaling):
@@ -215,8 +208,8 @@ class MyGame(arcade.Window):
 
             self.player_list.draw()
             self.grass_list.draw()
-            self.pavement_list.draw()
             self.coin_list.draw()
+            self.pavement_list.draw()
             self.star_list.draw()
 
             # Draws the score and lives
